@@ -16,7 +16,5 @@ for line in response.iter_lines():
     line = line.decode('utf-8')
     genes.append(line)
 
-print(genes)
-
-with open('./genes.json', 'w') as file:
+with open('./data/genes.json', 'w') as file:
     json.dump(genes, file)
