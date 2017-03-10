@@ -1,8 +1,8 @@
 import json
-from urllib import request, parse
 from bs4 import BeautifulSoup as BS
 import re
 import datetime as dt
+import requests
 
 with open('./genes.json', 'r') as input:
     genes = json.load(input)
@@ -16,8 +16,8 @@ orths = []
 last_time = dt.datetime.today().timestamp()
 diffs = []
 for gene in genes[1:10]:
-    page = request.urlopen(base_url + gene).read()
-    tds = BS(page, 'html.parser').findAll('td')
+    page = requests.get(base_url + gene)
+    tds = BS(page.text, 'html.parser').findAll('td')
     for td in tds:
         if re.search('AsteI2', td.text) is not None:
             orths.append({
