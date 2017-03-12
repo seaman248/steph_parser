@@ -3,9 +3,12 @@ import re
 from bs4 import BeautifulSoup as BS
 import requests
 import telepot
+import sys
 
+token = str(sys.argv[1])
 
 bot = telepot.Bot(token)
+bot.sendMessage('78955615', 'Start steph_parser')
 
 with open('./data/genes.json', 'r') as input:
     genes = json.load(input)
@@ -27,10 +30,10 @@ for gene in genes:
     try:
         orths.append(get_ind_coords(gene))
     except BaseException as e:
-        print(e)
-        bot.sendMessage('78955615', text=e)
+        bot.sendMessage('78955615', text=str(e))
         break
 
+bot.sendMessage('78955615', 'Stop steph_parser')
 
 with open('./data/orths.json', 'w') as output:
     json.dump(orths, output)
